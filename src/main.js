@@ -6,6 +6,15 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+import base from "./base.js"
+import axios from "axios"
+import qs from "qs"
+Vue.use(base)
+Vue.prototype.axios = axios
+Vue.prototype.qs = qs
+Vue.prototype.contextPath = "/apis"
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
