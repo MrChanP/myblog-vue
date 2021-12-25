@@ -1,9 +1,12 @@
 <template>
-  <div class="container">
-    <input type="text" v-model="userName">
-    <input type="password" v-model="password">
-    <button @click="login">登录</button>
-  </div>
+<!--  <transition enter-active-class="animate__fadeInDown">-->
+    <div class="container animated zoomIn fastest">
+      <input type="text" v-model="loginName">
+      <input type="password" v-model="password">
+      <button @click="login">登录</button>
+      <router-link to="/Register" class="">注册</router-link>
+    </div>
+<!--  </transition>-->
 </template>
 
 <script>
@@ -11,28 +14,35 @@
     name: "Login",
     data () {
       return {
-        userName: "",
-        password: "",
+        loginName: "",
+        password: ""
       }
     },
     methods: {
-      login(){
-        let url = "/index/test";
-        let data = { userName:this.userName };
+      login() {
+        let url = "/index/login";
+        let data = {
+          loginName: this.loginName,
+          password: this.password
+        };
         this.$httpPost(url, data,(res) => {
-            if (res.code == 0) {
-              this.$router.push( { name: 'Index', params: { userName:this.userName} } );
-            } else {
-              console.log(res)
-            }
+          if (res.code == 0) {
+            this.$root.userInfo.loginName = this.loginName
+            this.$router.push('/index');
+          } else {
+            console.log(res)
           }
-        )
+        })
       }
     }
   }
 </script>
 
 <style scoped>
+  .container {
+    border: 1px solid red;
+    height: 300px;
+  }
   input {
     width: 100px;
     height: 20px;
